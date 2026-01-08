@@ -1,17 +1,71 @@
 import React from 'react'
-import { useState,useRef } from 'react'
+import { useState,useRef,useContext } from 'react'
 import {validateForm} from '../utils/validate'
+import {auth} from '../utils/firebase';
+import { createUserWithEmailAndPassword,signInWithEmailAndPassword ,updateProfile} from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
+import { MyContext } from '../utils/store';
 const SignUp = () => {
   const [isSignUp,setIsSignUp]=useState(true);
   const [err,setErr]=useState(null);
   const email=useRef(null);
   const password=useRef(null);
   const userName=useRef(null);
-
+  const navigate = useNavigate();
+  const { setValue } = useContext(MyContext);
   const handleSubmit=()=>{
-    
-    setErr(validateForm(email.current.value,password.current.value));
+    const validation=validateForm(email.current.value,password.current.value)
+    setErr(validation);
     console.log(email.current.value,password.current.value);
+    if(validation) return;
+    if(!isSignUp){
+      createUserWithEmailAndPassword(auth,email.current.value,password.current.value)
+      .then((userCredential) => {
+        // Signed up 
+        const user = userCredential.user;
+        console.log(user);
+        updateProfile(user, {
+                displayName: userName.current.value
+        }).then((e)=>{
+          console.log('updated succesfully',e)
+        })
+        setValue(user);
+        email.current.value=''
+        password.current.value=''
+        userName.current.value=''
+        setIsSignUp(!isSignUp)
+
+        
+      })
+      .catch((error) => {
+        // const errorCode = error.code;
+        const errorMessage = error.message;
+        setErr(errorMessage)
+        
+      });
+    }
+    else{
+      //sign in
+      signInWithEmailAndPassword(auth,email.current.value,password.current.value)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        console.log(user)
+        // ...
+        setValue(user);
+        navigate('/browse')
+
+
+      })
+      .catch((error) => {
+        // const errorCode = error.code;
+        const errorMessage = error.message;
+        setErr(errorMessage)
+      });
+
+    }
+
+
   }
   return (
     <>

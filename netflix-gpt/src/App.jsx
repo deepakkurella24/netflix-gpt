@@ -1,8 +1,17 @@
 import Body from "./components/Body"
-function App() {
-  
+import { MyContext } from "./utils/store";
+import {useState } from "react";
 
-  return <Body />
+
+
+function App() {
+  const [value, setValue] = useState("");
+
+  return (
+    <MyContext.Provider value={{ value, setValue }}>
+      <Body />
+    </MyContext.Provider>
+  )
 }
 
 export default App
