@@ -1,14 +1,8 @@
+import Body from "./components/Body"
 function App() {
   
 
-  return (
-    
-      <div>
-   <p className="text-center text-3xl text-amber-200 my-10 font-bold">hello world</p>
-      </div>
-
-    
-  )
+  return <Body />
 }
 
 export default App
