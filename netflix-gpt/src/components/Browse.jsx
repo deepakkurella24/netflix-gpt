@@ -1,10 +1,18 @@
 import React from 'react'
-import { MyContext } from '../utils/store';
-import { useContext } from 'react';
+import { useSelector } from 'react-redux'
+import NavBar from './NavBar';
+
 const Browse = () => {
-  const { value } = useContext(MyContext);
+  const user = useSelector((state) => state.user); // entire user object
+  const displayName = user.displayName;
+  const email = user.email;
+  console.log(email,displayName)
   return (
-    <h1>Welcome {value.displayName}</h1>
+    <div>
+      <NavBar/>
+      <div className='text-4xl text-center'>Welcome {displayName}</div>
+    </div>
+    
   )
 }
 

@@ -6,7 +6,7 @@ const Body=()=>{
     const router=createBrowserRouter([
         {
             path:'/',
-            element:<SignUp />
+            element:<SignUp/>
         },
         {
             path:'/browse',
@@ -16,8 +16,10 @@ const Body=()=>{
     ])
     return (
         <div>
-            <NavBar />
-            <RouterProvider router={router} />
+             
+            <RouterProvider router={router}/>
+               
+           
         </div>
     )
 }

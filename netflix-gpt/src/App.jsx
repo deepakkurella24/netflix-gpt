@@ -1,17 +1,15 @@
 import Body from "./components/Body"
-import { MyContext } from "./utils/store";
-import {useState } from "react";
-
-
-
+import { store } from "./utils/store"
+import { Provider } from "react-redux"
 function App() {
-  const [value, setValue] = useState("");
-
   return (
-    <MyContext.Provider value={{ value, setValue }}>
+    <Provider store={store}>
       <Body />
-    </MyContext.Provider>
+    </Provider>
   )
 }
 
 export default App
+  // <Provider store={store}>
+  //   <App />
+  // </Provider>
