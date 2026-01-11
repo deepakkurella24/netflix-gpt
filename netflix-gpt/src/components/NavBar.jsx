@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import logout from '../utils/logout.png'
 import { signOut } from "firebase/auth";
 import { useSelector } from 'react-redux';
+import { clearAllMovies } from '../moviesSlice';
 const NavBar = () => {
     const user=useSelector((store)=>store.user);
     
@@ -31,6 +32,7 @@ const NavBar = () => {
             }
             else {
                 dispatch(clearUser())
+                dispatch(dispatch(clearAllMovies()))
                 navigate('/');
             }
          })

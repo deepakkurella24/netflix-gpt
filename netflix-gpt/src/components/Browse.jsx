@@ -1,16 +1,26 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import PrimaryContainer from './PrimaryContainer';
+import SecondaryContainer from './SecondaryContainer'
 import NavBar from './NavBar';
-
+import { useNowPlaying } from '../hooks/useNowPlaying';
+import {usePopular} from '../hooks/usePopular'
+import {useTopRated} from '../hooks/useTopRated'
+import {useUpComing} from '../hooks/useUpComing'
 const Browse = () => {
-  const user = useSelector((state) => state.user); // entire user object
-  const displayName = user.displayName;
-  const email = user.email;
-  console.log(email,displayName)
+   useNowPlaying();
+   usePopular();
+   useTopRated();
+   useUpComing();
+
+ 
+
+
+
   return (
     <div>
       <NavBar/>
-      <div className='text-4xl text-center'>Welcome {displayName}</div>
+      <PrimaryContainer />
+      <SecondaryContainer />
     </div>
     
   )
